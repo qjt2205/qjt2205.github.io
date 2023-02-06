@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            分类
+            Js模块化
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -31,15 +31,38 @@
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/page.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">分类</h1>
+                <h1 class="header-subtitle">Js模块化</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2023-02-06
+                        </span>
+                        
+                            <span id="/2023/02/06/Js模块化/" class="leancloud_visitors" data-flag-title="Js模块化">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2023/02/06/Js模块化/"></span>
+                        </span>  
+                    </p>
+                    
+                        
+                            <span class="category-color">JavaScript</span>
+                        
+                    
+                    
+                        
+                            <span class="tag-color">模块化</span>
+                        
+                            <span class="tag-color">面向对象</span>
+                        
+                    
                 </div>
             
         </div>
@@ -48,17 +71,97 @@
 </div>
 <div id="container">
     
-        <!-- 独立页面 -->
-        
-            <div class="categories">
-                <div class="categories-title">
-                    目前共计 2 个分类
-                </div>
-                <div class="categories-content">
-                    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a><span class="category-list-count">1</span></li></ul>
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h2 id="Js模块化"><a href="#Js模块化" class="headerlink" title="Js模块化"></a>Js模块化</h2><p>解决加载顺序和污染全局的问题</p>
+<h2 id="阶段一："><a href="#阶段一：" class="headerlink" title="阶段一："></a>阶段一：</h2><p> IE6之前，是没有Js引擎，用渲染引擎,  以script标签引入</p>
+<h2 id="阶段二："><a href="#阶段二：" class="headerlink" title="阶段二："></a>阶段二：</h2><p> 不同的功能写到不同的js文件中，引入页面</p>
+<p> 注：</p>
+<ul>
+<li>引用顺序不能乱， 会发生阻塞</li>
+<li>在全局js作用域中，会发生污染全局    变量重名，变量覆盖</li>
+</ul>
+<h2 id="阶段三："><a href="#阶段三：" class="headerlink" title="阶段三："></a>阶段三：</h2><p>立即执行函数    —-  只要被括号括起来，就是表达式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="keyword">function</span> (<span class="params"></span>) &#123; </span><br><span class="line">          作用域    执行期上下文 </span><br><span class="line">          模块的独立作用域 </span><br><span class="line">               <span class="keyword">return</span> &#123;</span><br><span class="line">                  以对象的方式抛出，易扩展</span><br><span class="line">                &#125;       </span><br><span class="line">         &#125;)();</span><br><span class="line"><span class="keyword">var</span> moduleA = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">       <span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>].<span class="title function_">reverse</span>();</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">             <span class="attr">a</span>: a</span><br><span class="line">         &#125;</span><br><span class="line"> &#125;)();</span><br></pre></td></tr></table></figure>
+<p> 模块注入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> modulebB = (<span class="keyword">function</span> (<span class="params">moduleA</span>) &#123;</span><br><span class="line">           <span class="keyword">var</span> b = moduleA.<span class="property">a</span>.<span class="title function_">concat</span>([<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]);</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">               <span class="attr">b</span>: b</span><br><span class="line">            &#125;</span><br><span class="line"> &#125;)(moduleA);</span><br></pre></td></tr></table></figure>
+<p>解决了污染全局   并且 模块之间相互依赖，并解决不了引用顺序问题</p>
+<h2 id="阶段四：-插件化的使用-—-面向对象"><a href="#阶段四：-插件化的使用-—-面向对象" class="headerlink" title="阶段四： 插件化的使用  —   面向对象"></a>阶段四： 插件化的使用  —   面向对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">   ;(<span class="keyword">function</span>(<span class="params">doc</span>)&#123;</span><br><span class="line">           <span class="keyword">var</span>   variable = <span class="keyword">function</span> (<span class="params"></span>)&#123;</span><br><span class="line">               <span class="comment">//获取所需要的节点</span></span><br><span class="line">               <span class="variable language_">this</span>.<span class="title function_">init</span>();</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           variable.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">init</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">               <span class="variable language_">this</span>.<span class="title function_">bindEvent</span>();</span><br><span class="line">           &#125;</span><br><span class="line">           variable.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">bindEvent</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">               <span class="comment">//绑定事件处理函数     注意this指向的改变     兼容性</span></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="comment">//功能函数</span></span><br><span class="line"></span><br><span class="line">           <span class="title class_">Window</span>.<span class="property">variable</span> = variable;</span><br><span class="line">           </span><br><span class="line">    &#125;)(<span class="variable language_">document</span>)</span><br><span class="line"></span><br><span class="line">   整个实例化</span><br><span class="line"></span><br><span class="line">&lt;/script&gt; </span><br></pre></td></tr></table></figure>
+<h2 id="阶段五：-NodeJs诞生-—-带来模块化体验"><a href="#阶段五：-NodeJs诞生-—-带来模块化体验" class="headerlink" title="阶段五： NodeJs诞生 —  带来模块化体验"></a>阶段五： NodeJs诞生 —  带来模块化体验</h2><p>   运行在node环境中<br>   commonJS , 一种规范<br>   require（’…….’）     引入模块<br>   module.exports , 导出模块, 同步完成<br>   拥有缓存机制, 一般用在node中</p>
+<h2 id="阶段六：-客户端的“commonJS”-—AMD"><a href="#阶段六：-客户端的“commonJS”-—AMD" class="headerlink" title="阶段六： 客户端的“commonJS”  —AMD"></a>阶段六： 客户端的“commonJS”  —AMD</h2><p>Asynchronous  Module  Definition     —-    异步模块定义 (  需要页面引入   RequireJS   来实现AMD  )</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">define</span>(moduleName, [<span class="variable language_">module</span>], 回调函数)  ------- 定义模块</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>.<span class="title function_">config</span>(&#123;</span><br><span class="line">    配置路径</span><br><span class="line"> &#125;)</span><br><span class="line"> <span class="built_in">require</span>([<span class="variable language_">module</span>], 回调函数)  ------  引入模块</span><br><span class="line"> </span><br><span class="line"> 特点： 依赖前置</span><br><span class="line">        模块加载完毕，才会执行回调函数，不会考虑顺序问题</span><br></pre></td></tr></table></figure>
+
+<h2 id="阶段六：-阿里模块化-—-CMD"><a href="#阶段六：-阿里模块化-—-CMD" class="headerlink" title="阶段六： 阿里模块化     — CMD"></a>阶段六： 阿里模块化     — CMD</h2><p>   Common Module Definition     —–    通用模块定义 (  需要页面引入   SeaJS   来实现AMD  )</p>
+<p>   define(function (require, exports, module) {})      定义模块</p>
+<p>   seaJs.use([module路径]， function(moduleA, moduleB, moduleC) {})  使用模块</p>
+<p>   依赖加载完毕后执行回调函数</p>
+<p>   特点： 依赖就近，按需加载     ——   区别于AMD    CommonJS</p>
+<h2 id="最终阶段：-ES6-——-官方"><a href="#最终阶段：-ES6-——-官方" class="headerlink" title="最终阶段：   ES6    ——   官方"></a>最终阶段：   ES6    ——   官方</h2><p>import     module   from     ‘模块路径’ ；        导入模块<br>export     module      导出路径</p>
+<p> 面向对象  ，封装， 继承 ， 多态</p>
+<h2 id="CommonJS-和-ES6的对比区别"><a href="#CommonJS-和-ES6的对比区别" class="headerlink" title="CommonJS  和  ES6的对比区别"></a>CommonJS  和  ES6的对比区别</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">exports</span>.<span class="property">a</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;来自export&#x27;</span>, ++ <span class="built_in">exports</span>.<span class="property">a</span>) ;</span><br><span class="line">       &#125;, <span class="number">300</span>)</span><br><span class="line"></span><br><span class="line"> 结果为 <span class="number">1</span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">const</span>  &#123; a &#125; = <span class="built_in">require</span>(<span class="string">&#x27;./export&#x27;</span>);</span><br><span class="line">       <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;来自commonJS&#x27;</span>, a) ;</span><br><span class="line">       &#125;, <span class="number">500</span>)</span><br><span class="line"> 结果为<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; a &#125; <span class="keyword">from</span> <span class="string">&#x27;./export&#x27;</span>;</span><br><span class="line">       <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;来自es6&#x27;</span>, a) ;</span><br><span class="line">       &#125;, <span class="number">500</span>)</span><br><span class="line">结果为<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>commonJS 模块，输出的是一个值的拷贝<br>ES6模块输出的是值的引用<br>commonJS模块是在运行时加载，而ES6模块是在编译时加载（webpack编译）</p>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar.jpg" alt="Mr.qiu">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>Mr.qiu
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/2023/02/06/Js%E6%A8%A1%E5%9D%97%E5%8C%96/" target="_blank">Js模块化</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>山茶读不懂白玫瑰，北山风吹不到南山尾
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                    <div class="category">
+                        分类：
+                        
+                            <a href="/categories/JavaScript/">JavaScript</a>
+                        
+                    </div>
+                
+                
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/">模块化</a>
+                        
+                            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a>
+                        
+                    </div>
+                
+                <div class="article-prev-next">
+                    
+                    
+                        <a href="/2023/02/06/hello-world/" class="next-prefix">» </a> 下一篇：    <a href="/2023/02/06/hello-world/" title="发布于 2023-02-06 02:12">出发</a>
+                    
                 </div>
             </div>
+            
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+
+        </div>
     
 </div>
     <div id="footer"></div>
@@ -86,7 +189,7 @@
                     
                         <li class=""><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
                     
-                        <li class=" active "><a href="/category" class="" target="_self"><span class="iconfont icon-folder-fill"></span>分类</a></li>
+                        <li class=""><a href="/category" class="" target="_self"><span class="iconfont icon-folder-fill"></span>分类</a></li>
                     
                         <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
                     
